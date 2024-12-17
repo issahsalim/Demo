@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-danger alert-dismissible fade show col-6" role="alert">
+        <strong class="text-center">{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endfor %}
+{%endif%}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+        <div class="col-md-6 offset-md-3">
+            <div class="card border-0 shadow">
+                <div class="card-header text-center bg-dark text-light">
+                    <h4 class="mb-0">Login</h4>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="index_number" class="form-label">Index Number</label>
+                            <input type="text" name="index_number" class="form-control form-control-lg rounded-pill"
+                                id="index_number" placeholder="Email" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control form-control-lg rounded-pill"
+                                id="password" placeholder="Enter your Password" required>
+                        </div> 
+                        <div class="form-group mb-1"> 
+                            <label for="checkbox" class="form-label"><input type="checkbox" id="checkbox"
+                                    style="margin-right:5px;">Show 
+                                Password</label>
+                        </div> 
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-dark btn-lg rounded-pill mt-4 px-5">Login</button>
+                        </div> 
+                    </form>  
+                </div> 
+                <!-- <div class="card-footer text-center bg-light">
+                    <small class="text-muted">Need help? <a href="#" class="text-dark">Contact Support</a></small>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .container {
+        max-width: 1000px;
+    }
+
+    .card {
+        border-radius: 15px;
+        animation: fadeInUp 0.8s ease-in-out;
+        border: 2px solid #f8f9fa;
+    }
+
+    .card-header,
+    .card-footer {
+        border-radius: 15px;
+    }
+
+    .btn-dark {
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-dark:hover {
+        background-color: #343a40;
+        transform: translateY(-2px);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-control-lg {
+        font-size: 1.2rem;
+        padding: 0.75rem 1.25rem;
+    }
+
+    .rounded-pill {
+        border-radius: 50rem;
+    }
+</style>
+
+<script>
+    ShowPassword = document.getElementById('password')
+    checkBox = document.getElementById('checkbox')
+    checkBox.addEventListener('change', () => {
+        ShowPassword.type = checkBox.checked ? "text" : "password" 
+    })
+
+</script> 
+
+{% endblock %}

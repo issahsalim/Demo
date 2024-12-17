@@ -1,0 +1,114 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-warning alert-dismissible fade show col-6" role="alert">
+        <strong class="text-center">{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Sign Up</h2>
+                    <form action="{% url 'signup' %}" method="post" class="form" id="forms">
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            <label for="indexNumber" class="form-label" id="indexnumber">Index Number</label>
+                            {{ form.username}} 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="Firstname" class="form-label">First Name</label>
+                                {{ form.first_name}}
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="Lastname" class="form-label">Last Name</label>
+                                {{ form.last_name}}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="phone" class="form-label">Phone</label>
+                            {{ form.phone}}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email</label>
+                            {{ form.email}}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="password" class="form-label">{{ form.password.label_tag }}</label>
+                                {{ form.password}}
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="c_password" class="form-label">Confirm Password</label>
+                                {{ form.confirm_password}}
+                            </div>
+                        </div> 
+                        
+                        <div class="mb-4">
+                            <label for="checkbox"> 
+                                <input type="checkbox" id="checkbox">
+                                Show Password
+                            </label>  
+                        </div>
+                            
+                        <h4 class="text-center mt-4 mb-4">Parent Information</h4>
+                        <div class="row"> 
+                            <div class="col-md-6 mb-4">
+                                <label for="parent_number" class="form-label">{{ form.parent_number.label_tag }}</label>
+                                {{ form.parent_number}}
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="parent_mail" class="form-label">{{ form.parent_mail.label_tag }}</label>
+                                {{ form.parent_mail}}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2" >Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showPassword = document.getElementById('password');
+        const showConfirmPassword = document.getElementById('c_password');
+        const checkBox = document.getElementById('checkbox');
+
+        checkBox.addEventListener('change', () => {
+            const type = checkBox.checked ? "text" : "password";
+            showPassword.type = type;
+            showConfirmPassword.type = type;
+        });
+    });
+     
+    window.addEventListener('load',()=>{
+                Swal.fire({
+                    icon: 'info',
+                    title: "Alert", 
+                    html: `This app is strictly develop for only ITB class so am sorry if you are not in ITB class you can use this app`
+                })
+            })
+    </script>
+
+ {% endblock %}

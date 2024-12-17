@@ -1,0 +1,119 @@
+{% extends 'base.html'%}
+
+{%load static %}
+{% block title %} Staffs {%endblock%}
+{%block content %}
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        justify-items: center;
+    }
+    @media (max-width:568px) {
+        .container{ 
+            margin-top: 20%;
+        }
+         
+        .form{
+            margin-top: 20%;
+        } 
+    }
+
+</style>
+
+    <form action="" method="get" class="form p-4">
+        {%csrf_token%}
+        <div class="d-flex justify-content-center">
+            <input type="search" class="form-control" placeholder="search by name or class handle" name="search" required>
+            <button type="submit" class="btn btn-primary mx-4"> search</button>
+        </div>
+    </form>
+
+
+<div class="d-flex justify-content-center p-3 head">
+    {% for head in headmaster %} 
+    <div class="card">  
+        <h2 class="text-center"> Head Master </h2>
+        <div class="d-flex justify-content-center"><img src=" {{head.picture}} " alt="{{head.name}}" class="card-image"
+                style="width: 250px; height: 20vh;"></div>
+        <div class="card-body">
+            <h4 class="card-tittle"><b>Name:</b> {{head.name}} </h4>
+            <p class="card-text"><b>PhoneNumber:</b> {{head.phoneNumber}}</p>
+            <p class="card-text"><b>PhoneNumber:</b> {{head.email}}</p>
+            <div class="d-flex justify-content-center"><a href="+233{{head.phoneNumber}}" class="btn btn-primary"> Call </a></div>
+        </div>
+    </div>
+
+    {%endfor%} 
+</div>
+
+<HR> 
+</HR> 
+<h1 class="text-center">TEACHERS</h1>
+<div class="container p-3 teachers">
+    {% for teacher in teachers %}
+    <div class="card shadow-sm" style="width: 18rem;">
+        {%if teacher.picture%}
+        <div class="d-flex justify-content-center"><img src="{{teacher.picture}}" class="card-img-top"
+                alt="{{teacher.name}}" style="width: 250px; height: 30vh;"></div>
+        {%else%}
+        <div class="d-flex justify-content-center"><img src="{% static 'images/logo1.png' %}" class="card-img-top"
+                alt="{{teacher.name}}" style="width: 250px; height: 30vh; border-radius: 360px;"></div>
+        {%endif%}
+        <div class="card-body"> 
+            <h5 class="card-title">Name: {{teacher.name}}</h5>
+            <p class="card-text"> <b>Class Handle:</b> {{teacher.ClassHanlder}} </p>
+            <p class="card-text"> <b>Phone Number:</b> 0{{teacher.phoneNumber}} </p>
+            <p class="card-text"> <b>Age:</b> {{teacher.age}} </p>
+            <a href="tel:+233{{teacher.phoneNumber}}" class="btn btn-primary  ">Call</a>
+        </div>
+    </div>
+    {%empty%}
+    <h4 class="text-center no">No Teacher available</h4>
+    {%endfor%}
+</div>
+
+{% if search %}
+<style>
+.teachers{
+    display: none;
+} 
+.no{
+    display: none;
+}
+ .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        justify-items: center;
+    }
+
+</style>
+
+<div class="container">
+{% for searched in search %}
+    <div class="card shadow-sm" style="width: 18rem;">
+        {%if searched.picture%}
+        <div class="d-flex justify-content-center"><img src="{{searched.picture}}" class="card-img-top"
+                alt="{{searched.name}}" style="width: 250px; height: 30vh;"></div>
+        {%else%}
+        <div class="d-flex justify-content-center"><img src="{% static 'images/logo1.png' %}" class="card-img-top"
+                alt="{{searched.name}}" style="width: 250px; height: 30vh; border-radius: 360px;"></div>
+        {%endif%}
+        <div class="card-body">
+            <h5 class="card-title">Name: {{searched.name}}</h5>
+            <p class="card-text"> <b>Class Handle:</b> {{searched.ClassHanlder}} </p>
+            <p class="card-text"> <b>Phone Number:</b> 0{{searched.phoneNumber}} </p>
+            <p class="card-text"> <b>Age:</b> {{searched.age}} </p>
+            <a href="tel:+233{{searched.phoneNumber}}" class="btn btn-primary  ">Call</a>
+        </div>
+    </div>
+    {%endfor%} 
+</div>
+{%endif%}
+{%endblock%}

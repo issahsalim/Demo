@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title%}Not found {%endblock%}
+{% block content %}
+<style>
+    body,
+    html {
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh; 
+    }
+    
+</style>
+
+<div class="container">
+    <h1>Not found</h1>
+    <p>We can't find any teacher or class by the name <strong>{{errorsearch}}</strong></p>
+    <p><a href="{% url 'form_teachers' %}">Go back to Home</a></p>
+</div>
+
+{%endblock%}
